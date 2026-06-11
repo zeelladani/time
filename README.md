@@ -1,6 +1,7 @@
 Main Screen
-<img width="1919" height="906" alt="Screenshot 2026-06-11 095027" src="https://github.com/user-attachments/assets/443946dc-1606-4d53-9a39-85a886b57a32" />
+<img width="1919" height="906" alt="Screenshot 2026-06-11 111930" src="https://github.com/user-attachments/assets/724de42b-fc37-468f-90dc-19b211a6bdbd" />
 
 Taking Snapshots
-<img width="720" height="540" alt="year-progress-ist-2026" src="https://github.com/user-attachments/assets/c44913ac-514c-4184-bb32-49ac39436a49" />
+<img width="1920" height="1080" alt="year-progress-2026-162 (5)" src="https://github.com/user-attachments/assets/de4689d4-a3e2-41b0-8b37-edf6d6377621" />
+
 
