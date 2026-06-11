@@ -722,18 +722,18 @@
             ctx.font = '24px system-ui';
             ctx.fillText(`${getAstroEvent()}`, canvas.width - 500, 510);
             
-            ctx.font = 'italic 26px "Georgia", serif';
+            ctx.font = 'italic 40px "Georgia", serif';
             ctx.fillStyle = '#C1E8FF';
-            ctx.fillText(freshQuote, 70, canvas.height - 150);
+            ctx.fillText(freshQuote, 70, canvas.height - 250, canvas.width - 600);
             
-            ctx.font = 'bold 22px monospace';
+            ctx.font = 'bold 30px monospace';
             ctx.fillStyle = '#548383';
-            ctx.fillText(`📷 @zeel_ladani129  |  zeelladani.in  |  time.zeelladani.in`, 70, canvas.height - 65);
+            ctx.fillText(`📷 @zeel_ladani129  |  zeelladani.in  |  time.zeelladani.in`, 70, canvas.height - 100);
             
             const nowStr = getCurrentISTDate().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'full', timeStyle: 'long' });
             ctx.fillStyle = '#7DA0CA';
             ctx.font = '18px monospace';
-            ctx.fillText(nowStr, 70, canvas.height - 28);
+            ctx.fillText(nowStr, 85, canvas.height - 40);
             
             const link = document.createElement('a');
             link.download = `year-progress-${currentYear}-${dayOfYear}.png`;
