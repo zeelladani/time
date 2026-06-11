@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#eef2ff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="data:application/manifest+json,{
+        \"name\": \"3D Year Compass\",
+        \"short_name\": \"YearPro\",
+        \"start_url\": \".\",
+        \"display\": \"standalone\",
+        \"background_color\": \"#eef2ff\",
+        \"theme_color\": \"#3b82f6\",
+        \"icons\": [{\"src\": \"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%233b82f6'/%3E%3Ctext x='50' y='67' text-anchor='middle' fill='white' font-size='40' font-weight='bold'%3E%25%3C/text%3E%3C/svg%3E\", \"sizes\": \"any\", \"type\": \"image/svg+xml\"}]
+    }">
+    <title>3D Year Compass | IST | Live Clock</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, 'Poppins', sans-serif;
+            background: radial-gradient(circle at 20% 30%, #eef2ff, #d9e2f0);
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+            overflow-x: auto;
+        }
+
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* 3D Isometric Main Card - Light Theme Fixed */
+        .isometric-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(14px);
+            border-radius: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            transform: perspective(1200px) rotateX(2deg) rotateY(0.5deg);
+            box-shadow: 0 35px 60px -20px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            transition: transform 0.3s ease;
+            padding: 2rem;
+            color: #1e293b;
+        }
+
+        .isometric-card:hover {
+            transform: perspective(1200px) rotateX(1.5deg) rotateY(0.8deg) translateY(-5px);
+        }
+
+        /* header toolbar with equal height items */
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* All three items have equal height - consistent card look */
+        .toolbar-item {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 2rem;
+            padding: 0.75rem 1rem;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            transition: all 0.2s ease;
+            min-height: 85px;
+        }
+
+        /* Season Badge - same height card */
+        .season-badge-card {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(168, 85, 247, 0.1));
+            text-align: center;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .season-icon {
+            font-size: 1.6rem;
+        }
+
+        .season-label {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #1e3a5f;
+            letter-spacing: 0.5px;
+        }
+
+        /* Live Clock Card - equal height */
+        .live-clock-card {
+            text-align: center;
+            flex-direction: column;
+            background: rgba(59, 130, 246, 0.08);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .live-date {
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            color: #1e40af;
+            font-family: monospace;
+        }
+
+        .live-time {
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', 'SF Mono', monospace;
+            color: #0f2b3d;
+            line-height: 1.2;
+        }
+
+        /* Snapshot Button Card - equal height */
+        .snapshot-card {
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .snapshot-card:hover {
+            transform: scale(1.02);
+            background: rgba(59, 130, 246, 0.25);
+            border-color: #3b82f6;
+        }
+
+        .snapshot-icon {
+            font-size: 1.4rem;
+        }
+
+        .snapshot-text {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #1f3a5f;
+        }
+
+        /* quarters grid */
+        .quarters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .quarter-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            border-radius: 1.8rem;
+            padding: 1rem 1.2rem;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .quarter-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            color: #0f2b3d;
+        }
+
+        .quarter-progress-bar {
+            height: 8px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 0.6rem 0;
+        }
+
+        .quarter-fill {
+            width: 0%;
+            height: 100%;
+            border-radius: 20px;
+            transition: width 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        /* heatmap month grid */
+        .heatmap-section {
+            margin: 2.2rem 0;
+        }
+
+        .heatmap-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 8px;
+            margin-top: 1rem;
+        }
+
+        .heatmap-cell {
+            background: #e2e8f0;
+            border-radius: 12px;
+            padding: 0.8rem 0.3rem;
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            backdrop-filter: blur(4px);
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            color: #1e293b;
+        }
+
+        .heatmap-cell:hover {
+            transform: scale(1.02);
+            background: #3b82f6;
+            color: white;
+        }
+
+        /* Moon + Astro panel */
+        .astro-panel {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 2rem;
+            padding: 1.2rem 1.8rem;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.6);
+        }
+
+        .moon-phase {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .moon-icon {
+            font-size: 3rem;
+            filter: drop-shadow(0 0 6px #ffd966);
+        }
+
+        .astronomy-text {
+            font-size: 0.9rem;
+            color: #2c3e66;
+        }
+
+        /* Footer Credits */
+        .credits-footer {
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 0.8rem;
+            padding: 0.8rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 2rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .credits-footer a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .credits-footer a:hover {
+            color: #1e40af;
+            text-decoration: underline;
+        }
+
+        /* snapshot modal */
+        .snapshot-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.2s;
+        }
+
+        .snapshot-modal.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .snapshot-content {
+            background: #ffffffea;
+            border-radius: 2rem;
+            padding: 2rem;
+            max-width: 90%;
+            text-align: center;
+            border: 1px solid #cbd5e1;
+            color: #0f172a;
+        }
+
+        canvas#snapshotCanvas {
+            background: #f8fafc;
+            border-radius: 1.5rem;
+            max-width: 100%;
+            margin-top: 1rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        /* animations */
+        @keyframes floatParticles {
+            0% { transform: translateY(0px) rotate(0deg); opacity: 0.5; }
+            100% { transform: translateY(-120px) rotate(20deg); opacity: 0; }
+        }
+
+        .seasonal-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            bottom: -20px;
+            animation: floatParticles 6s infinite ease-in;
+        }
+
+        @media (max-width: 780px) {
+            .heatmap-grid { gap: 4px; }
+            .heatmap-cell { font-size: 0.6rem; padding: 0.4rem 0; }
+            .isometric-card { padding: 1.2rem; }
+            .toolbar { gap: 0.6rem; }
+            .toolbar-item { padding: 0.5rem 0.6rem; min-height: 70px; }
+            .live-time { font-size: 1.1rem; }
+            .season-icon { font-size: 1.2rem; }
+            .snapshot-icon { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <div class="isometric-card" id="mainCard">
+        <!-- Equal height toolbar items -->
+        <div class="toolbar">
+            <!-- Season Card -->
+            <div class="toolbar-item season-badge-card" id="seasonCard">
+                <div class="season-icon" id="seasonIcon">🌸</div>
+                <div class="season-label" id="seasonLabel">Spring · Renewal</div>
+            </div>
+            
+            <!-- Live Clock Card - Center -->
+            <div class="toolbar-item live-clock-card">
+                <div class="live-date" id="liveDateDisplay">--/--/----</div>
+                <div class="live-time" id="liveTimeDisplay">--:--:--</div>
+            </div>
+            
+            <!-- Snapshot Button Card -->
+            <div class="toolbar-item snapshot-card" id="snapshotBtn">
+                <div class="snapshot-icon">📸</div>
+                <div class="snapshot-text">Take Snapshot</div>
+            </div>
+        </div>
+
+        <!-- global year progress (main) -->
+        <div style="margin-bottom: 2rem;">
+            <h2 style="font-weight: 600; letter-spacing: -0.5px;">🗓️ Year Timeline Compass (IST)</h2>
+            <div class="progress-track" style="background: #cbd5e1; border-radius: 40px; height: 12px; margin: 1rem 0;">
+                <div id="globalFill" style="width:0%; height:100%; background: linear-gradient(90deg, #3b82f6, #a855f7); border-radius: 40px; transition: width 0.5s;"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between;"><span id="globalPercent">0%</span><span id="dayCount">Day 0 / 365</span><span id="istTime" style="font-size:0.8rem;">🕘 IST</span></div>
+        </div>
+
+        <!-- quarters breakdown (ALL quarters remain visible) -->
+        <div class="quarters-grid" id="quartersContainer"></div>
+
+        <!-- month heatmap (ALL months remain visible) -->
+        <div class="heatmap-section">
+            <h3>📅 Month-by-Month Heatmap</h3>
+            <div class="heatmap-grid" id="heatmapGrid"></div>
+        </div>
+
+        <!-- moon & astronomical events -->
+        <div class="astro-panel" id="astroPanel">
+            <div class="moon-phase"><span class="moon-icon" id="moonIcon">🌕</span><div><strong>Moon Phase (IST)</strong><br><span id="moonPhaseName">Waxing Gibbous</span></div></div>
+            <div><strong>✨ Celestial Event:</strong> <span id="astroEvent">Lyrid Meteor Shower</span><br><small id="astroDate">April 22</small></div>
+            <div><strong>🌍 Timezone:</strong> India (IST) • UTC+5:30</div>
+        </div>
+
+        <!-- Credits Footer -->
+        <div class="credits-footer">
+            <span>✨ Created with ❤️ by </span>
+            <a href="https://www.instagram.com/zeel_ladani129/" target="_blank">📷 @zeel_ladani129</a>
+            <span> • </span>
+            <a href="https://zeelladani.in" target="_blank">🌐 zeelladani.in</a>
+        </div>
+        <div style="text-align: center; margin-top: 0.8rem; font-size: 0.7rem; opacity: 0.7;">✨ 3D isometric • PWA ready • Live IST ✨</div>
+    </div>
+</div>
+
+<!-- snapshot modal -->
+<div id="snapshotModal" class="snapshot-modal">
+    <div class="snapshot-content">
+        <h3>📸 Year Progress Snapshot</h3>
+        <canvas id="snapshotCanvas" width="700" height="540" style="width:100%; height:auto; max-width:700px;"></canvas>
+        <div style="margin-top: 1rem;"><button id="closeModal" class="snapshot-btn" style="background:rgba(59,130,246,0.15); border:1px solid rgba(59,130,246,0.3); padding:0.5rem 1.2rem; border-radius:2rem; cursor:pointer;">Close</button> <button id="downloadSnap" class="snapshot-btn" style="background:rgba(59,130,246,0.15); border:1px solid rgba(59,130,246,0.3); padding:0.5rem 1.2rem; border-radius:2rem; cursor:pointer; margin-left:0.5rem;">Download Image</button></div>
+    </div>
+</div>
+
+<script>
+    // ---------- IST TIMEZONE: all calculations based on Indian Standard Time (UTC+5:30) ----------
+    function getCurrentISTDate() {
+        const nowUTC = new Date();
+        const istOffsetMs = 5.5 * 60 * 60 * 1000; // +5:30
+        const istTime = new Date(nowUTC.getTime() + istOffsetMs);
+        return istTime;
+    }
+
+    function getISTDateComponents() {
+        const istDate = getCurrentISTDate();
+        const year = istDate.getUTCFullYear();
+        const month = istDate.getUTCMonth();
+        const day = istDate.getUTCDate();
+        const hours = istDate.getUTCHours();
+        const minutes = istDate.getUTCMinutes();
+        const seconds = istDate.getUTCSeconds();
+        return { year, month, day, hours, minutes, seconds, fullDate: istDate };
+    }
+
+    // Update Live Clock in Center (DD:MM:YYYY & HH:MM:SS)
+    function updateLiveClock() {
+        const { year, month, day, hours, minutes, seconds } = getISTDateComponents();
+        const formattedDate = `${String(day).padStart(2, '0')}:${String(month + 1).padStart(2, '0')}:${year}`;
+        const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        document.getElementById('liveDateDisplay').innerText = formattedDate;
+        document.getElementById('liveTimeDisplay').innerText = formattedTime;
+    }
+
+    function getDayOfYearIST() {
+        const { year, month, day, fullDate } = getISTDateComponents();
+        const startOfYear = new Date(Date.UTC(year, 0, 1, 0, 0, 0));
+        const nowUTC = new Date(fullDate.getTime() - (5.5 * 60 * 60 * 1000));
+        const diffMs = nowUTC - startOfYear;
+        const dayNumber = Math.floor(diffMs / 86400000) + 1;
+        return dayNumber;
+    }
+
+    function getTotalDaysInYear(year) {
+        return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0) ? 366 : 365;
+    }
+
+    const { year: currentYear, month: currentMonthIdx, day: currentDay, fullDate: istNow } = getISTDateComponents();
+    const totalDays = getTotalDaysInYear(currentYear);
+    let dayOfYear = getDayOfYearIST();
+    const startOfYearIST = new Date(Date.UTC(currentYear, 0, 1, 0, 0, 0));
+    const nowUTCForProgress = new Date(istNow.getTime() - (5.5 * 60 * 60 * 1000));
+    const elapsedMs = nowUTCForProgress - startOfYearIST;
+    const yearDurationMs = (totalDays * 86400000);
+    let exactProgress = Math.min(1, Math.max(0, elapsedMs / yearDurationMs));
+    let percent = exactProgress * 100;
+
+    function refreshProgressValues() {
+        const comps = getISTDateComponents();
+        const newDayOfYear = (() => {
+            const start = new Date(Date.UTC(comps.year, 0, 1, 0, 0, 0));
+            const nowUTC = new Date(comps.fullDate.getTime() - (5.5 * 60 * 60 * 1000));
+            return Math.floor((nowUTC - start) / 86400000) + 1;
+        })();
+        const newElapsed = new Date(comps.fullDate.getTime() - (5.5 * 60 * 60 * 1000)) - new Date(Date.UTC(comps.year, 0, 1, 0, 0, 0));
+        const newPercent = Math.min(1, Math.max(0, newElapsed / (getTotalDaysInYear(comps.year) * 86400000))) * 100;
+        return { dayOfYear: newDayOfYear, percent: newPercent };
+    }
+
+    const isLeap = totalDays === 366;
+    const quarters = [
+        { name: "Q1 · Jan–Mar", days: (isLeap ? 91 : 90), startDay: 1, color: "#3b82f6" },
+        { name: "Q2 · Apr–Jun", days: 91, startDay: (isLeap ? 92 : 91), color: "#06b6d4" },
+        { name: "Q3 · Jul–Sep", days: 92, startDay: (isLeap ? 183 : 182), color: "#f59e0b" },
+        { name: "Q4 · Oct–Dec", days: 92, startDay: (isLeap ? 275 : 274), color: "#ec4899" }
+    ];
+    if (!isLeap) quarters[0].days = 90;
+
+    function getQuarterProgress(currentDayNum) {
+        return quarters.map(q => {
+            let endDay = q.startDay + q.days - 1;
+            if (currentDayNum < q.startDay) return 0;
+            if (currentDayNum > endDay) return 100;
+            let daysInto = currentDayNum - q.startDay + 1;
+            return (daysInto / q.days) * 100;
+        });
+    }
+
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const monthStartDays = [1, 32, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335];
+    if (isLeap) { monthStartDays[2] = 61; monthStartDays[3] = 92; monthStartDays[4] = 122; monthStartDays[5] = 153; monthStartDays[6] = 183; monthStartDays[7] = 214; monthStartDays[8] = 245; monthStartDays[9] = 275; monthStartDays[10] = 306; monthStartDays[11] = 336; }
+    
+    function getMonthProgress(currentDayNum) {
+        let monthPercent = [];
+        for (let m = 0; m < 12; m++) {
+            let start = monthStartDays[m];
+            let end = (m === 11 ? totalDays : monthStartDays[m + 1] - 1);
+            if (currentDayNum < start) monthPercent.push(0);
+            else if (currentDayNum > end) monthPercent.push(100);
+            else {
+                let daysInto = currentDayNum - start + 1;
+                let monthLen = end - start + 1;
+                monthPercent.push((daysInto / monthLen) * 100);
+            }
+        }
+        return monthPercent;
+    }
+
+    function getMoonPhaseIST() {
+        const nowIST = getCurrentISTDate();
+        const lunarCycle = 29.530587;
+        const newMoon2000 = new Date(Date.UTC(2000, 0, 6, 18, 14, 0));
+        const diff = (nowIST - newMoon2000) / (1000 * 3600 * 24);
+        const phase = (diff % lunarCycle) / lunarCycle;
+        if (phase < 0.03) return { name: "🌑 New Moon", icon: "🌑", detail: "New Moon" };
+        if (phase < 0.23) return { name: "🌒 Waxing Crescent", icon: "🌒", detail: "Waxing Crescent" };
+        if (phase < 0.27) return { name: "🌓 First Quarter", icon: "🌓", detail: "First Quarter" };
+        if (phase < 0.48) return { name: "🌔 Waxing Gibbous", icon: "🌔", detail: "Waxing Gibbous" };
+        if (phase < 0.52) return { name: "🌕 Full Moon", icon: "🌕", detail: "Full Moon" };
+        if (phase < 0.73) return { name: "🌖 Waning Gibbous", icon: "🌖", detail: "Waning Gibbous" };
+        if (phase < 0.77) return { name: "🌗 Last Quarter", icon: "🌗", detail: "Last Quarter" };
+        return { name: "🌘 Waning Crescent", icon: "🌘", detail: "Waning Crescent" };
+    }
+
+    function getAstroEventIST() {
+        const { month, day } = getISTDateComponents();
+        if (month === 0 && day < 5) return "Quadrantids Meteor Shower";
+        if (month === 3 && day >= 21 && day <= 23) return "Lyrids Meteor Shower";
+        if (month === 7 && day >= 11 && day <= 13) return "Perseids Meteor Shower";
+        if (month === 10 && day >= 16 && day <= 18) return "Leonids Meteor Shower";
+        if (month === 11 && day >= 13 && day <= 15) return "Geminids Meteor Shower";
+        if (month === 2 && day === 20) return "March Equinox";
+        if (month === 5 && day === 21) return "June Solstice";
+        if (month === 8 && day === 22) return "September Equinox";
+        if (month === 11 && day === 21) return "December Solstice";
+        return "Stargazing Night";
+    }
+
+    const seasonMap = ['winter', 'winter', 'spring', 'spring', 'spring', 'summer', 'summer', 'summer', 'autumn', 'autumn', 'autumn', 'winter'];
+    let currentSeason = seasonMap[currentMonthIdx];
+    
+    function updateSeasonCard() {
+        const seasonIconElem = document.getElementById('seasonIcon');
+        const seasonLabelElem = document.getElementById('seasonLabel');
+        if (currentSeason === 'spring') { seasonIconElem.innerHTML = "🌸"; seasonLabelElem.innerHTML = "Spring · Renewal"; }
+        if (currentSeason === 'summer') { seasonIconElem.innerHTML = "☀️"; seasonLabelElem.innerHTML = "Summer · Radiance"; }
+        if (currentSeason === 'autumn') { seasonIconElem.innerHTML = "🍂"; seasonLabelElem.innerHTML = "Autumn · Harvest"; }
+        if (currentSeason === 'winter') { seasonIconElem.innerHTML = "❄️"; seasonLabelElem.innerHTML = "Winter · Solstice"; }
+        addSeasonalParticles(seasonIconElem.innerHTML);
+    }
+    
+    function addSeasonalParticles(emoji) {
+        let bgDiv = document.querySelector('.seasonal-bg');
+        if (!bgDiv) { bgDiv = document.createElement('div'); bgDiv.className = 'seasonal-bg'; document.body.prepend(bgDiv); }
+        bgDiv.innerHTML = '';
+        for (let i = 0; i < 28; i++) {
+            let p = document.createElement('div');
+            p.className = 'particle';
+            p.innerHTML = emoji;
+            p.style.left = Math.random() * 100 + '%';
+            p.style.animationDuration = 4 + Math.random() * 7 + 's';
+            p.style.animationDelay = Math.random() * 5 + 's';
+            p.style.fontSize = 16 + Math.random() * 22 + 'px';
+            p.style.opacity = 0.4 + Math.random() * 0.4;
+            bgDiv.appendChild(p);
+        }
+    }
+
+    function renderDashboard() {
+        const { dayOfYear: currentDayNum, percent: currentPercent } = refreshProgressValues();
+        const qProgs = getQuarterProgress(currentDayNum);
+        const container = document.getElementById('quartersContainer');
+        container.innerHTML = quarters.map((q, idx) => `<div class="quarter-card"><div class="quarter-title"><span>${q.name}</span><span>${Math.floor(qProgs[idx])}%</span></div><div class="quarter-progress-bar"><div class="quarter-fill" style="width:${qProgs[idx]}%; background:${q.color};"></div></div><div style="font-size:0.7rem;">${Math.floor((qProgs[idx]/100)*q.days)}/${q.days} days</div></div>`).join('');
+        
+        const monthPcts = getMonthProgress(currentDayNum);
+        const heatGrid = document.getElementById('heatmapGrid');
+        heatGrid.innerHTML = monthPcts.map((p, i) => `<div class="heatmap-cell" style="background: rgba(59,130,246,${0.15 + p/100 * 0.6});"><strong>${monthNames[i]}</strong><br>${Math.floor(p)}%</div>`).join('');
+        
+        document.getElementById('globalFill').style.width = currentPercent + '%';
+        document.getElementById('globalPercent').innerHTML = currentPercent.toFixed(2) + '%';
+        document.getElementById('dayCount').innerHTML = `Day ${currentDayNum} / ${totalDays}`;
+        
+        const moon = getMoonPhaseIST();
+        document.getElementById('moonIcon').innerHTML = moon.icon;
+        document.getElementById('moonPhaseName').innerHTML = moon.name;
+        const astroEvent = getAstroEventIST();
+        document.getElementById('astroEvent').innerHTML = astroEvent;
+        const { day, month } = getISTDateComponents();
+        document.getElementById('astroDate').innerHTML = `${monthNames[month]} ${day}`;
+        
+        const nowIST = getCurrentISTDate();
+        const istTimeStr = nowIST.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: 'Asia/Kolkata' });
+        document.getElementById('istTime').innerHTML = `🕘 IST ${istTimeStr}`;
+    }
+
+    function takeSnapshot() {
+        const { dayOfYear: currentDayNum, percent: currentPercent } = refreshProgressValues();
+        const canvas = document.getElementById('snapshotCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = 720;
+        canvas.height = 540;
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#f8fafc';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        ctx.fillStyle = '#0f172a';
+        ctx.font = 'bold 24px "Segoe UI"';
+        ctx.fillText(`📅 YEAR PROGRESS · ${currentYear}`, 30, 50);
+        ctx.font = '16px system-ui';
+        ctx.fillStyle = '#1e293b';
+        ctx.fillText(`Overall: ${currentPercent.toFixed(1)}% complete  (Day ${currentDayNum} of ${totalDays})`, 30, 95);
+        ctx.fillStyle = '#3b82f6';
+        ctx.fillRect(30, 115, (canvas.width - 60) * (currentPercent / 100), 18);
+        
+        let currentQuarterData = null;
+        let currentQuarterProgress = 0;
+        for (let i = 0; i < quarters.length; i++) {
+            const q = quarters[i];
+            const qStartDay = q.startDay;
+            const qEndDay = qStartDay + q.days - 1;
+            if (currentDayNum >= qStartDay && currentDayNum <= qEndDay) {
+                currentQuarterData = q;
+                const daysInto = currentDayNum - qStartDay + 1;
+                currentQuarterProgress = (daysInto / q.days) * 100;
+                break;
+            }
+        }
+        
+        if (currentQuarterData) {
+            ctx.fillStyle = '#0f172a';
+            ctx.font = 'bold 17px monospace';
+            ctx.fillText(`🔹 CURRENT QUARTER (Active)`, 30, 170);
+            ctx.fillStyle = '#334155';
+            ctx.font = '14px system-ui';
+            ctx.fillText(`${currentQuarterData.name}  ·  ${Math.floor(currentQuarterProgress)}% completed`, 40, 200);
+            ctx.fillStyle = '#e2e8f0';
+            ctx.fillRect(40, 215, 320, 12);
+            ctx.fillStyle = currentQuarterData.color;
+            ctx.fillRect(40, 215, 320 * (currentQuarterProgress / 100), 12);
+            ctx.fillStyle = '#475569';
+            ctx.font = '12px monospace';
+            const daysDone = Math.floor((currentQuarterProgress / 100) * currentQuarterData.days);
+            ctx.fillText(`${daysDone} / ${currentQuarterData.days} days elapsed`, 40, 245);
+        }
+        
+        const currentMonthDays = new Date(currentYear, currentMonthIdx + 1, 0).getDate();
+        const daysPassedInMonth = currentDay;
+        const monthProgressPercent = (daysPassedInMonth / currentMonthDays) * 100;
+        const monthName = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][currentMonthIdx];
+        
+        ctx.fillStyle = '#0f172a';
+        ctx.font = 'bold 17px monospace';
+        ctx.fillText(`📆 CURRENT MONTH (Active)`, 30, 290);
+        ctx.fillStyle = '#334155';
+        ctx.font = '14px system-ui';
+        ctx.fillText(`${monthName} ${currentYear}  ·  ${Math.floor(monthProgressPercent)}% through month`, 40, 320);
+        ctx.fillStyle = '#e2e8f0';
+        ctx.fillRect(40, 335, 320, 12);
+        ctx.fillStyle = '#10b981';
+        ctx.fillRect(40, 335, 320 * (monthProgressPercent / 100), 12);
+        ctx.fillStyle = '#475569';
+        ctx.font = '12px monospace';
+        const weeksInMonth = Math.ceil(currentMonthDays / 7);
+        const currentWeek = Math.ceil(currentDay / 7);
+        ctx.fillText(`Week ${currentWeek} of ${weeksInMonth}  |  Day ${currentDay}/${currentMonthDays}`, 40, 365);
+        
+        const moon = getMoonPhaseIST();
+        ctx.fillStyle = '#0f172a';
+        ctx.font = 'bold 17px monospace';
+        ctx.fillText(`🌙 ASTRONOMY SNAPSHOT`, 400, 170);
+        ctx.font = '14px system-ui';
+        ctx.fillStyle = '#334155';
+        ctx.fillText(`${moon.icon} ${moon.name}`, 410, 210);
+        ctx.fillStyle = '#475569';
+        ctx.font = '12px monospace';
+        ctx.fillText(`${getAstroEventIST()}`, 410, 240);
+        
+        ctx.fillStyle = '#1e293b';
+        ctx.font = 'bold 13px monospace';
+        ctx.fillText(`✨ Created by:`, 400, 310);
+        ctx.fillStyle = '#3b82f6';
+        ctx.font = '12px monospace';
+        ctx.fillText(`📷 @zeel_ladani129`, 410, 340);
+        ctx.fillStyle = '#8b5cf6';
+        ctx.font = '12px monospace';
+        ctx.fillText(`🌐 zeelladani.in`, 410, 365);
+        
+        const nowIST = getCurrentISTDate();
+        const istString = nowIST.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'full', timeStyle: 'short' });
+        ctx.fillStyle = '#6c757d';
+        ctx.font = 'italic 10px monospace';
+        ctx.fillText(`📍 Snapshot: ${istString} (IST) • Season: ${currentSeason}`, 30, canvas.height - 35);
+        ctx.fillStyle = '#3b82f6';
+        ctx.font = 'bold 10px monospace';
+        ctx.fillText("#YearProgress • 3D Compass", canvas.width - 160, canvas.height - 15);
+        
+        document.getElementById('snapshotModal').classList.add('active');
+    }
+
+    // Real-time loop
+    function realTimeLoop() {
+        updateLiveClock();
+        renderDashboard();
+    }
+    
+    // Event listeners
+    document.getElementById('snapshotBtn').addEventListener('click', takeSnapshot);
+    document.getElementById('closeModal').addEventListener('click', () => document.getElementById('snapshotModal').classList.remove('active'));
+    document.getElementById('downloadSnap').addEventListener('click', () => {
+        const canvas = document.getElementById('snapshotCanvas');
+        const link = document.createElement('a');
+        link.download = `year-progress-ist-${currentYear}.png`;
+        link.href = canvas.toDataURL();
+        link.click();
+    });
+    
+    // PWA install
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        const installBtn = document.createElement('button');
+        installBtn.innerText = '📲 Install App (PWA)';
+        installBtn.className = 'snapshot-btn';
+        installBtn.style.background = 'rgba(59,130,246,0.15)';
+        installBtn.style.border = '1px solid rgba(59,130,246,0.3)';
+        installBtn.style.padding = '0.5rem 1rem';
+        installBtn.style.borderRadius = '2rem';
+        installBtn.style.cursor = 'pointer';
+        installBtn.style.fontFamily = 'inherit';
+        installBtn.style.marginLeft = '0.5rem';
+        installBtn.onclick = () => { deferredPrompt.prompt(); deferredPrompt.userChoice.then(() => installBtn.remove()); };
+        document.querySelector('.toolbar').appendChild(installBtn);
+    });
+    
+    setInterval(realTimeLoop, 1000);
+    realTimeLoop();
+    updateSeasonCard();
+</script>
+</body>
+</html>
