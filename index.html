@@ -19,21 +19,9 @@
         \"theme_color\": \"#3b82f6\",
         \"background_color\": \"#eef2ff\",
         \"categories\": [\"productivity\", \"lifestyle\", \"utilities\"],
-        \"icons\": [
-            {
-                \"src\": \"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%233b82f6'/%3E%3Cstop offset='100%25' stop-color='%23a855f7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='url(%23g)'/%3E%3Ctext x='50' y='68' text-anchor='middle' fill='white' font-size='48' font-weight='bold' font-family='Arial'%3E%25%3C/text%3E%3C/svg%3E\",
-                \"sizes\": \"any\",
-                \"type\": \"image/svg+xml\",
-                \"purpose\": \"any maskable\"
-            },
-            {
-                \"src\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAGNSURBVHgB7doxasJAFIThDwEJ1t7CO3gKb2HtLay9hVcIbKwtbL2FnbW1l/AU3sLS2lJIEBDZx7CLybIsu2/Dx7fFj0wmkwnFsmwymUwmk8lkMplMJpPJZDKZTCaTyWQymUwmk8lkMplMJpPJZDKZTCaTyWQymUwmk8lkMplMJpPJZDKZTCaTyWQymUwmk8lkMplMJpPJZDKZTCaTyWQymUwmk8lkMplMJpPJZDKZTCaTyWQymUwmk8lkMplMJpPJZDKZTCaTyWQymUwmk8lkMplMJpPJZDKZTCaTyWQymUwmk8lkMplMJpPJZDKZTCaTyWQymUwmk8lkMplMJpPJZDKZTCaTyWQymUwmk8lkMplMJpPJZDKZTCaTyWQymUwmk8lkMplMJpPJZDKZTCaTyWQymUwmk8lkMplMJpPJZDKZTCaTyWQymUwmk8lkMplMJpPJZDKZTCaTyWQymUwmk8lkMplMJpPJZDKZTCaTyWQymUwmk8lkMplMJpPJZL/OB1/emMmVIteSAAAAAElFTkSuQmCC\",
-                \"sizes\": \"64x64\",
-                \"type\": \"image/png\"
-            }
-        ]
+        \"icons\": [{\"src\": \"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%233b82f6'/%3E%3Cstop offset='100%25' stop-color='%23a855f7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='url(%23g)'/%3E%3Ctext x='50' y='68' text-anchor='middle' fill='white' font-size='48' font-weight='bold' font-family='Arial'%3E%25%3C/text%3E%3C/svg%3E\", \"sizes\": \"any\", \"type\": \"image/svg+xml\", \"purpose\": \"any maskable\"}]
     }">
-    <title>3D Year Compass | Installable PWA</title>
+    <title>3D Year Compass | time.zeelladani.in</title>
     <style>
         * {
             margin: 0;
@@ -62,7 +50,6 @@
             justify-content: center;
         }
 
-        /* 3D Isometric Card - Perfectly Centered */
         .isometric-card {
             background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(14px);
@@ -90,7 +77,6 @@
             }
         }
 
-        /* Header - All in one line */
         .header-row {
             display: flex;
             align-items: center;
@@ -128,27 +114,29 @@
         .live-time-lg { font-size: 1rem; font-weight: 700; font-family: monospace; color: #0f2b3d; line-height: 1.1; }
 
         .snapshot-button {
-            background: rgba(59,130,246,0.15);
-            border: 1px solid rgba(59,130,246,0.35);
+            background: linear-gradient(135deg, #3b82f6, #a855f7);
+            border: none;
             border-radius: 2rem;
-            padding: 0.4rem 0.7rem;
+            padding: 0.4rem 1rem;
             display: flex;
             align-items: center;
-            gap: 0.3rem;
+            gap: 0.4rem;
             cursor: pointer;
             transition: all 0.15s ease;
             flex-shrink: 0;
+            color: white;
+            font-weight: 600;
         }
-        .snapshot-button:active { transform: scale(0.96); background: rgba(59,130,246,0.3); }
+        .snapshot-button:active { transform: scale(0.96); opacity: 0.9; }
         .snapshot-icon { font-size: 0.9rem; }
-        .snapshot-text { font-weight: 600; font-size: 0.65rem; color: #1f3a5f; }
+        .snapshot-text { font-size: 0.7rem; }
 
         @media (min-width: 480px) {
             .season-pill { padding: 0.5rem 1rem; }
             .season-icon { font-size: 1.2rem; }
             .season-label { font-size: 0.75rem; }
             .live-time-lg { font-size: 1.2rem; }
-            .snapshot-button { padding: 0.5rem 1rem; }
+            .snapshot-button { padding: 0.5rem 1.2rem; }
             .snapshot-text { font-size: 0.75rem; }
         }
 
@@ -159,12 +147,10 @@
             .snapshot-text { font-size: 0.8rem; }
         }
 
-        /* Global Progress */
         .global-progress h2 { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.4rem; }
         .progress-track { background: #cbd5e1; border-radius: 40px; height: 8px; margin: 0.6rem 0; overflow: hidden; }
         .progress-stats { display: flex; justify-content: space-between; font-size: 0.7rem; flex-wrap: wrap; gap: 0.3rem; }
 
-        /* Quarters */
         .quarters-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; margin: 1.2rem 0; }
         @media (min-width: 768px) { .quarters-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); } }
         .quarter-card {
@@ -178,7 +164,6 @@
         .quarter-title { font-size: 1rem; font-weight: 700; display: flex; justify-content: space-between; margin-bottom: 0.4rem; }
         .quarter-progress-bar { height: 6px; background: rgba(0,0,0,0.1); border-radius: 20px; overflow: hidden; margin: 0.4rem 0; }
         
-        /* Current Month */
         .current-month-section { margin: 1.2rem 0; }
         .section-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.6rem; color: #0f2b3d; display: flex; align-items: center; gap: 0.4rem; }
         .current-month-card {
@@ -194,7 +179,6 @@
         .week-breakdown { display: flex; gap: 0.4rem; margin-top: 0.8rem; flex-wrap: wrap; }
         .week-chip { background: #f1f5f9; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.65rem; font-weight: 500; }
 
-        /* Heatmap - Hidden on mobile */
         .heatmap-section { margin: 1.2rem 0; }
         @media (max-width: 767px) { .heatmap-section { display: none; } }
         @media (min-width: 768px) {
@@ -212,7 +196,6 @@
             .heatmap-cell.current-month-highlight { background: linear-gradient(135deg, #3b82f6, #a855f7); color: white; }
         }
 
-        /* Astro Panel */
         .astro-panel {
             display: flex;
             justify-content: space-between;
@@ -227,61 +210,63 @@
         .moon-icon { font-size: 2rem; }
         .astro-panel div { font-size: 0.7rem; }
 
-        /* Credits */
         .credits-footer {
             margin-top: 1rem;
             text-align: center;
-            font-size: 0.65rem;
-            padding: 0.5rem;
+            font-size: 0.7rem;
+            padding: 0.6rem;
             background: rgba(255,255,255,0.5);
             border-radius: 1.2rem;
         }
-        .credits-footer a { color: #3b82f6; text-decoration: none; }
-
-        /* Modal */
-        .snapshot-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(20px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            visibility: hidden;
-            opacity: 0;
-            transition: 0.2s;
-            padding: 1rem;
-        }
-        .snapshot-modal.active { visibility: visible; opacity: 1; }
-        .snapshot-content {
-            background: #ffffffea;
-            border-radius: 1.5rem;
-            padding: 1.2rem;
-            max-width: 95%;
-            text-align: center;
-        }
-        canvas#snapshotCanvas {
-            display: block;
-            margin: 0.8rem auto;
+        .credits-footer a { color: #3b82f6; text-decoration: none; font-weight: 500; }
+        .domain-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #3b82f6, #a855f7);
+            color: white;
+            padding: 0.2rem 0.6rem;
             border-radius: 1rem;
-            max-width: 100%;
-        }
-        .modal-buttons { display: flex; gap: 0.8rem; justify-content: center; margin-top: 1rem; }
-        .modal-btn {
-            background: rgba(59,130,246,0.15);
-            border: 1px solid rgba(59,130,246,0.3);
-            padding: 0.5rem 1.2rem;
-            border-radius: 2rem;
-            font-size: 0.8rem;
+            font-size: 0.6rem;
             font-weight: 600;
-            cursor: pointer;
+            margin-left: 0.4rem;
         }
 
-        /* Particles */
+        .toast-message {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .toast-message.show { opacity: 1; }
+
+        .loading-indicator {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-size: 14px;
+            z-index: 2001;
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+        .loading-indicator.show { display: flex; }
+
         .seasonal-bg {
             position: fixed;
             top: 0;
@@ -304,7 +289,6 @@
             100% { transform: translateY(-100px) rotate(20deg); opacity: 0; }
         }
 
-        /* Install Button */
         .install-pwa-btn {
             background: linear-gradient(135deg, #3b82f6, #a855f7);
             border: none;
@@ -318,24 +302,6 @@
             white-space: nowrap;
         }
         @media (min-width: 768px) { .install-pwa-btn { padding: 0.4rem 1rem; font-size: 0.7rem; } }
-        
-        /* Offline indicator */
-        .offline-indicator {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            background: #ef4444;
-            color: white;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 10px;
-            font-weight: 600;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-            z-index: 100;
-        }
-        .offline-indicator.show { opacity: 1; }
     </style>
 </head>
 <body>
@@ -352,12 +318,12 @@
             </div>
             <div class="snapshot-button" id="snapshotBtn">
                 <span class="snapshot-icon">📸</span>
-                <span class="snapshot-text">Shot</span>
+                <span class="snapshot-text">Download HD Snapshot</span>
             </div>
         </div>
 
         <div class="global-progress">
-            <h2>🗓️ Year Timeline (IST)</h2>
+            <h2>🗓️ Year Timeline Compass</h2>
             <div class="progress-track"><div id="globalFill" style="width:0%; height:100%; background: linear-gradient(90deg, #3b82f6, #a855f7); border-radius: 40px;"></div></div>
             <div class="progress-stats"><span id="globalPercent">0%</span><span id="dayCount">Day 0/365</span><span id="istTime">🕘 IST</span></div>
         </div>
@@ -375,13 +341,14 @@
         </div>
 
         <div class="astro-panel">
-            <div class="moon-phase"><span class="moon-icon" id="moonIcon">🌕</span><div><strong>Moon</strong><br><span id="moonPhaseName" style="font-size:0.65rem;">Waxing</span></div></div>
+            <div class="moon-phase"><span class="moon-icon" id="moonIcon">🌕</span><div><strong>Moon Phase</strong><br><span id="moonPhaseName" style="font-size:0.65rem;">Waxing</span></div></div>
             <div><strong>✨ Event</strong><br><span id="astroEvent">Meteor</span><br><small id="astroDate"></small></div>
-            <div><strong>🌍 IST</strong><br>UTC+5:30</div>
+            <div><strong>🌍 Timezone</strong><br>IST (UTC+5:30)</div>
         </div>
 
         <div class="credits-footer">
-            <span>✨ Created by </span>
+            <span>✨ <strong>time.zeelladani.in</strong> <span class="domain-badge">Live PWA</span></span><br>
+            <span>Created with ❤️ by </span>
             <a href="https://www.instagram.com/zeel_ladani129/" target="_blank">📷 @zeel_ladani129</a>
             <span> • </span>
             <a href="https://zeelladani.in" target="_blank">🌐 zeelladani.in</a>
@@ -389,41 +356,165 @@
     </div>
 </div>
 
-<div id="snapshotModal" class="snapshot-modal">
-    <div class="snapshot-content">
-        <h3 style="font-size: 1.1rem;">📸 Year Progress Snapshot</h3>
-        <canvas id="snapshotCanvas" width="600" height="480" style="max-width:100%; height:auto;"></canvas>
-        <div class="modal-buttons">
-            <button class="modal-btn" id="closeModal">Close</button>
-            <button class="modal-btn" id="downloadSnap">Download</button>
-        </div>
-    </div>
+<div class="toast-message" id="toastMsg">📸 Snapshot Downloaded!</div>
+<div class="loading-indicator" id="loadingIndicator">
+    <span>⏳</span> Fetching fresh wisdom...
 </div>
 
-<div class="offline-indicator" id="offlineIndicator">📡 Offline Mode</div>
-
 <script>
-    // REGISTER SERVICE WORKER FOR OFFLINE SUPPORT & INSTALLATION
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js').then(reg => {
-            console.log('Service Worker registered!', reg);
-        }).catch(err => {
-            console.log('Service Worker registration failed:', err);
-        });
+    // ========== FETCH REAL QUOTES & FACTS FROM INTERNET ==========
+    // Multiple APIs for redundancy - fallback to local cache if needed
+    
+    async function fetchQuoteFromAPI() {
+        const APIs = [
+            // ZenQuotes API - free, no key needed
+            async () => {
+                const res = await fetch('https://zenquotes.io/api/random');
+                const data = await res.json();
+                if (data && data[0]) {
+                    return `💬 "${data[0].q}" — ${data[0].a}`;
+                }
+                return null;
+            },
+            // API Ninjas Quotes (limited, but works as fallback)
+            async () => {
+                const res = await fetch('https://api.api-ninjas.com/v1/quotes?category=inspirational', {
+                    headers: { 'X-Api-Key': 'YOUR_API_KEY' } // This will fail without key, so skip
+                });
+                return null;
+            },
+            // Free API for facts about time
+            async () => {
+                // Use a time fact API or create dynamic time-based facts
+                const timeFacts = [
+                    `⏰ Did you know? The word "clock" comes from the Celtic word "clocca" meaning "bell".`,
+                    `📅 The Gregorian calendar was introduced in 1582 by Pope Gregory XIII.`,
+                    `🌙 A day on Venus is longer than its year (243 Earth days vs 225 Earth days).`,
+                    `⚡ Light travels so fast that it could circle Earth 7.5 times in one second!`,
+                    `🕐 The first mechanical clocks were invented in Europe around the 13th century.`,
+                    `🌟 A single second is defined as 9,192,631,770 cycles of a cesium-133 atom.`,
+                    `📆 February once had 30 days! Under Roman calendar reforms, it briefly had 30 days.`,
+                    `🕰️ The modern 24-hour day comes from ancient Egyptians who divided day into 10 hours plus twilight.`,
+                    `✨ Time dilation: GPS satellites gain about 38 microseconds per day due to relativity!`,
+                    `⏳ The sand hourglass was used since the 14th century for measuring time at sea.`
+                ];
+                return `🔍 ${timeFacts[Math.floor(Math.random() * timeFacts.length)]}`;
+            }
+        ];
+        
+        // Try to fetch from a public quote API (using a CORS-friendly service)
+        try {
+            // Using Quote Garden API (free, no CORS issues)
+            const quoteRes = await fetch('https://quote-garden.onrender.com/api/v3/quotes/random');
+            if (quoteRes.ok) {
+                const quoteData = await quoteRes.json();
+                if (quoteData && quoteData.data && quoteData.data[0]) {
+                    return `💬 "${quoteData.data[0].quoteText}" — ${quoteData.data[0].quoteAuthor || 'Unknown'}`;
+                }
+            }
+        } catch (e) { console.log('Quote API failed, using backup'); }
+        
+        // Try another free API (Programming Quotes)
+        try {
+            const progRes = await fetch('https://programming-quotes-api.herokuapp.com/api/quotes/random');
+            if (progRes.ok) {
+                const progData = await progRes.json();
+                if (progData && progData.en) {
+                    return `💻 "${progData.en}" — ${progData.author || 'Inspirational'}`;
+                }
+            }
+        } catch (e) {}
+        
+        // Fallback: Return a dynamic fact about time based on current progress
+        const { percent } = getCurrentProgressData();
+        const fallbackQuotes = [
+            `⏰ "The only limit to our realization of tomorrow is our doubts of today." — FDR`,
+            `📅 ${Math.floor(percent)}% of the year has passed. Make the remaining ${Math.floor(100-percent)}% count!`,
+            `✨ "Time is what we want most, but what we use worst." — William Penn`,
+            `🌟 "The future starts today, not tomorrow." — Pope John Paul II`,
+            `💪 "You may delay, but time will not." — Benjamin Franklin`
+        ];
+        return fallbackQuotes[Math.floor(Math.random() * fallbackQuotes.length)];
+    }
+    
+    async function fetchTimeFact() {
+        try {
+            // Try NumbersAPI for time facts
+            const factRes = await fetch('http://numbersapi.com/random/date?json');
+            if (factRes.ok) {
+                const factData = await factRes.json();
+                if (factData && factData.text) {
+                    return `📚 ${factData.text}`;
+                }
+            }
+        } catch (e) {}
+        
+        // Dynamic time fact based on real data
+        const { dayOfYear, percent } = getCurrentProgressData();
+        const dynamicFacts = [
+            `⏳ You have ${Math.floor(100 - percent)}% of the year remaining — ${Math.floor((100 - percent) / 100 * 365)} days to make an impact!`,
+            `📆 Today is day ${dayOfYear} of ${totalDaysYear(new Date().getFullYear())} in this ${isLeapYear() ? 'leap' : 'common'} year.`,
+            `🌍 Light takes about 8 minutes to reach Earth from the Sun — imagine what you can do in 8 minutes!`,
+            `🕐 Every minute, approximately 250 babies are born worldwide. Time keeps moving forward!`,
+            `✨ The concept of "second" comes from Latin "secunda minuta" meaning "second minute" (the second division of the hour).`
+        ];
+        return `🔎 ${dynamicFacts[Math.floor(Math.random() * dynamicFacts.length)]}`;
+    }
+    
+    async function getFreshQuoteOrFact() {
+        // Randomly choose quote (60%) or fact (40%)
+        const isQuote = Math.random() < 0.6;
+        if (isQuote) {
+            return await fetchQuoteFromAPI();
+        } else {
+            return await fetchTimeFact();
+        }
+    }
+    
+    // Helper functions for dynamic facts
+    function getCurrentProgressData() {
+        const { dayOfYear, percent } = refreshProgress();
+        return { dayOfYear, percent };
+    }
+    
+    function isLeapYear() {
+        const year = new Date().getFullYear();
+        return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+    }
+    
+    function totalDaysYear(y) { return ((y%4===0&&y%100!==0)||y%400===0)?366:365; }
+    
+    // Cache for the current snapshot quote (so we don't fetch multiple times)
+    let cachedQuote = null;
+    let quoteFetchPromise = null;
+    
+    async function getQuoteForSnapshot() {
+        if (cachedQuote) return cachedQuote;
+        if (quoteFetchPromise) return quoteFetchPromise;
+        
+        quoteFetchPromise = (async () => {
+            const quote = await getFreshQuoteOrFact();
+            cachedQuote = quote;
+            setTimeout(() => { cachedQuote = null; quoteFetchPromise = null; }, 5000);
+            return quote;
+        })();
+        return quoteFetchPromise;
     }
 
-    // Check online/offline status
-    window.addEventListener('online', () => {
-        document.getElementById('offlineIndicator').classList.remove('show');
-    });
-    window.addEventListener('offline', () => {
-        document.getElementById('offlineIndicator').classList.add('show');
-    });
+    // Service Worker Registration
+    if ('serviceWorker' in navigator) {
+        const swCode = `const CACHE_NAME = 'year-compass-v4';
+const urlsToCache = ['/'];
+self.addEventListener('install', e => e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(urlsToCache))));
+self.addEventListener('fetch', e => e.respondWith(caches.match(e.request).then(r => r || fetch(e.request))));`;
+        const blob = new Blob([swCode], {type: 'application/javascript'});
+        const swUrl = URL.createObjectURL(blob);
+        navigator.serviceWorker.register(swUrl).catch(console.log);
+    }
 
     // IST TIMEZONE
     function getCurrentISTDate() {
-        const nowUTC = new Date();
-        return new Date(nowUTC.getTime() + 5.5 * 60 * 60 * 1000);
+        return new Date(new Date().getTime() + 5.5 * 60 * 60 * 1000);
     }
     function getISTComponents() {
         const d = getCurrentISTDate();
@@ -440,7 +531,6 @@
         const nowUTC = new Date(fullDate.getTime() - 5.5*3600000);
         return Math.floor((nowUTC - start) / 86400000) + 1;
     }
-    function totalDaysYear(y) { return ((y%4===0&&y%100!==0)||y%400===0)?366:365; }
     
     const { year: currentYear, month: currentMonthIdx, day: currentDay } = getISTComponents();
     const totalDays = totalDaysYear(currentYear);
@@ -464,9 +554,7 @@
     if(!isLeap) quarters[0].days=90;
     
     function getCurrentQuarter() {
-        for(let q of quarters) {
-            if(dayOfYear >= q.startDay && dayOfYear <= q.startDay+q.days-1) return q;
-        }
+        for(let q of quarters) if(dayOfYear >= q.startDay && dayOfYear <= q.startDay+q.days-1) return q;
         return quarters[0];
     }
     function getQuarterProgress(dayNum, q) {
@@ -504,12 +592,12 @@
     }
     function getAstroEvent() {
         const { month, day } = getISTComponents();
-        if(month===0 && day<5) return "Quadrantids";
-        if(month===3 && day>=21 && day<=23) return "Lyrids";
-        if(month===7 && day>=11 && day<=13) return "Perseids";
-        if(month===10 && day>=16 && day<=18) return "Leonids";
-        if(month===11 && day>=13 && day<=15) return "Geminids";
-        return "Stargazing";
+        if(month===0 && day<5) return "Quadrantids Meteor Shower";
+        if(month===3 && day>=21 && day<=23) return "Lyrids Meteor Shower";
+        if(month===7 && day>=11 && day<=13) return "Perseids Meteor Shower";
+        if(month===10 && day>=16 && day<=18) return "Leonids Meteor Shower";
+        if(month===11 && day>=13 && day<=15) return "Geminids Meteor Shower";
+        return "Stargazing Night ✨";
     }
     
     const seasonMap = ['winter','winter','spring','spring','spring','summer','summer','summer','autumn','autumn','autumn','winter'];
@@ -581,65 +669,155 @@
         document.getElementById('istTime').innerHTML = `🕘 ${getCurrentISTDate().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',timeZone:'Asia/Kolkata'})}`;
     }
     
-    function takeSnapshot() {
-        const { dayOfYear, percent } = refreshProgress();
-        const canvas = document.getElementById('snapshotCanvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = 600; canvas.height = 480;
+    // DIRECT DOWNLOAD WITH FRESH QUOTE FROM INTERNET
+    async function downloadSnapshot() {
+        const loading = document.getElementById('loadingIndicator');
+        loading.classList.add('show');
         
-        ctx.fillStyle = '#ffffff'; ctx.fillRect(0,0,canvas.width,canvas.height);
-        ctx.fillStyle = '#f8fafc'; ctx.fillRect(0,0,canvas.width,canvas.height);
-        
-        ctx.fillStyle = '#0f172a'; ctx.font = 'bold 20px "Segoe UI"';
-        ctx.fillText(`📅 YEAR PROGRESS · ${currentYear}`, 25, 45);
-        ctx.font = '14px system-ui'; ctx.fillStyle = '#1e293b';
-        ctx.fillText(`Overall: ${percent.toFixed(1)}% complete (Day ${dayOfYear} of ${totalDays})`, 25, 80);
-        ctx.fillStyle = '#e2e8f0'; ctx.fillRect(25, 100, canvas.width - 50, 14);
-        ctx.fillStyle = '#3b82f6'; ctx.fillRect(25, 100, (canvas.width - 50) * (percent / 100), 14);
-        
-        const currQ = getCurrentQuarter();
-        const qProg = getQuarterProgress(dayOfYear, currQ);
-        ctx.fillStyle = '#0f172a'; ctx.font = 'bold 14px monospace';
-        ctx.fillText(`🔹 CURRENT QUARTER`, 25, 145);
-        ctx.font = '12px system-ui'; ctx.fillStyle = '#334155';
-        ctx.fillText(`${currQ.name} · ${Math.floor(qProg)}% completed (${Math.floor((qProg/100)*currQ.days)}/${currQ.days} days)`, 35, 175);
-        ctx.fillStyle = '#e2e8f0'; ctx.fillRect(35, 190, 300, 10);
-        ctx.fillStyle = currQ.color; ctx.fillRect(35, 190, 300 * (qProg / 100), 10);
-        
-        const monthProgress = getMonthProgress(dayOfYear, currentMonthIdx);
-        const monthNameShort = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][currentMonthIdx];
-        ctx.fillStyle = '#0f172a'; ctx.font = 'bold 14px monospace';
-        ctx.fillText(`📆 CURRENT MONTH`, 25, 235);
-        ctx.font = '12px system-ui'; ctx.fillStyle = '#334155';
-        ctx.fillText(`${monthNameShort} ${currentYear} · ${Math.floor(monthProgress)}% through month`, 35, 265);
-        ctx.fillStyle = '#e2e8f0'; ctx.fillRect(35, 280, 300, 10);
-        ctx.fillStyle = '#10b981'; ctx.fillRect(35, 280, 300 * (monthProgress / 100), 10);
-        
-        const moon = getMoonPhase();
-        ctx.fillStyle = '#0f172a'; ctx.font = 'bold 14px monospace';
-        ctx.fillText(`🌙 ASTRONOMY`, 380, 145);
-        ctx.font = '12px system-ui'; ctx.fillStyle = '#334155';
-        ctx.fillText(`${moon.icon} ${moon.name}`, 390, 175);
-        ctx.fillStyle = '#475569'; ctx.fillText(`${getAstroEvent()}`, 390, 200);
-        
-        ctx.fillStyle = '#3b82f6'; ctx.font = '10px monospace';
-        ctx.fillText(`📷 @zeel_ladani129  |  zeelladani.in`, 25, canvas.height - 40);
-        const nowStr = getCurrentISTDate().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'full', timeStyle: 'short' });
-        ctx.fillStyle = '#6c757d'; ctx.font = '8px monospace';
-        ctx.fillText(nowStr, 25, canvas.height - 18);
-        
-        document.getElementById('snapshotModal').classList.add('active');
+        try {
+            const { dayOfYear, percent } = refreshProgress();
+            const canvas = document.createElement('canvas');
+            canvas.width = 1920;
+            canvas.height = 1080;
+            const ctx = canvas.getContext('2d');
+            
+            // Fetch fresh quote from internet
+            const freshQuote = await getQuoteForSnapshot();
+            
+            // Background with gradient
+            const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            grad.addColorStop(0, '#ffffff');
+            grad.addColorStop(1, '#f0f4ff');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Decorative border
+            ctx.strokeStyle = '#3b82f6';
+            ctx.lineWidth = 4;
+            ctx.strokeRect(25, 25, canvas.width - 50, canvas.height - 50);
+            
+            // Accent circles
+            ctx.beginPath();
+            ctx.arc(canvas.width - 100, 100, 80, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(59,130,246,0.05)';
+            ctx.fill();
+            
+            // Title
+            ctx.fillStyle = '#0f172a';
+            ctx.font = 'bold 52px "Segoe UI", system-ui';
+            ctx.fillText(`📅 YEAR PROGRESS · ${currentYear}`, 70, 110);
+            
+            // Domain
+            ctx.font = '28px monospace';
+            ctx.fillStyle = '#3b82f6';
+            ctx.fillText(`time.zeelladani.in`, 70, 175);
+            
+            // Main Progress
+            ctx.font = '30px system-ui';
+            ctx.fillStyle = '#1e293b';
+            ctx.fillText(`Overall: ${percent.toFixed(2)}% complete  (Day ${dayOfYear} of ${totalDays})`, 70, 260);
+            ctx.fillStyle = '#e2e8f0';
+            ctx.fillRect(70, 295, canvas.width - 140, 28);
+            ctx.fillStyle = '#3b82f6';
+            ctx.fillRect(70, 295, (canvas.width - 140) * (percent / 100), 28);
+            
+            // Current Quarter
+            const currQ = getCurrentQuarter();
+            const qProg = getQuarterProgress(dayOfYear, currQ);
+            ctx.fillStyle = '#0f172a';
+            ctx.font = 'bold 34px monospace';
+            ctx.fillText(`🔹 CURRENT QUARTER`, 70, 400);
+            ctx.font = '26px system-ui';
+            ctx.fillStyle = '#334155';
+            ctx.fillText(`${currQ.name}  ·  ${Math.floor(qProg)}% completed  (${Math.floor((qProg/100)*currQ.days)}/${currQ.days} days)`, 95, 465);
+            ctx.fillStyle = '#e2e8f0';
+            ctx.fillRect(95, 495, 550, 18);
+            ctx.fillStyle = currQ.color;
+            ctx.fillRect(95, 495, 550 * (qProg / 100), 18);
+            
+            // Current Month
+            const monthProgress = getMonthProgress(dayOfYear, currentMonthIdx);
+            const monthNameFull = ["January","February","March","April","May","June","July","August","September","October","November","December"][currentMonthIdx];
+            ctx.fillStyle = '#0f172a';
+            ctx.font = 'bold 34px monospace';
+            ctx.fillText(`📆 CURRENT MONTH`, 70, 590);
+            ctx.font = '26px system-ui';
+            ctx.fillStyle = '#334155';
+            ctx.fillText(`${monthNameFull} ${currentYear}  ·  ${Math.floor(monthProgress)}% through month`, 95, 655);
+            ctx.fillStyle = '#e2e8f0';
+            ctx.fillRect(95, 685, 550, 18);
+            ctx.fillStyle = '#10b981';
+            ctx.fillRect(95, 685, 550 * (monthProgress / 100), 18);
+            
+            // Moon & Astronomy
+            const moon = getMoonPhase();
+            ctx.fillStyle = '#0f172a';
+            ctx.font = 'bold 34px monospace';
+            ctx.fillText(`🌙 ASTRONOMY`, canvas.width - 550, 400);
+            ctx.font = '28px system-ui';
+            ctx.fillStyle = '#334155';
+            ctx.fillText(`${moon.icon}  ${moon.name}`, canvas.width - 530, 470);
+            ctx.font = '24px system-ui';
+            ctx.fillStyle = '#475569';
+            ctx.fillText(`${getAstroEvent()}`, canvas.width - 530, 540);
+            
+            // FRESH QUOTE/FACT FROM INTERNET
+            ctx.font = 'italic 26px "Georgia", serif';
+            ctx.fillStyle = '#8b5cf6';
+            
+            // Wrap long quote text
+            const maxWidth = canvas.width - 140;
+            let quoteText = freshQuote;
+            if (ctx.measureText(quoteText).width > maxWidth) {
+                let words = quoteText.split(' ');
+                let lines = [];
+                let currentLine = '';
+                for (let word of words) {
+                    let testLine = currentLine + (currentLine ? ' ' : '') + word;
+                    if (ctx.measureText(testLine).width > maxWidth && currentLine) {
+                        lines.push(currentLine);
+                        currentLine = word;
+                    } else {
+                        currentLine = testLine;
+                    }
+                }
+                lines.push(currentLine);
+                for (let i = 0; i < lines.length; i++) {
+                    ctx.fillText(lines[i], 70, canvas.height - 180 + (i * 40));
+                }
+            } else {
+                ctx.fillText(quoteText, 70, canvas.height - 160);
+            }
+            
+            // Footer Credits
+            ctx.font = 'bold 22px monospace';
+            ctx.fillStyle = '#3b82f6';
+            ctx.fillText(`📷 @zeel_ladani129  |  zeelladani.in  |  time.zeelladani.in`, 70, canvas.height - 70);
+            
+            // Timestamp
+            const nowStr = getCurrentISTDate().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'full', timeStyle: 'long' });
+            ctx.fillStyle = '#6c757d';
+            ctx.font = '18px monospace';
+            ctx.fillText(nowStr, 70, canvas.height - 30);
+            
+            // Direct download
+            const link = document.createElement('a');
+            link.download = `year-progress-${currentYear}-${dayOfYear}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            
+            // Show toast notification
+            const toast = document.getElementById('toastMsg');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        } catch (error) {
+            console.error('Snapshot error:', error);
+        } finally {
+            loading.classList.remove('show');
+        }
     }
     
-    document.getElementById('snapshotBtn').addEventListener('click', takeSnapshot);
-    document.getElementById('closeModal').addEventListener('click', () => document.getElementById('snapshotModal').classList.remove('active'));
-    document.getElementById('downloadSnap').addEventListener('click', () => {
-        const canvas = document.getElementById('snapshotCanvas');
-        const link = document.createElement('a');
-        link.download = `year-progress-${currentYear}.png`;
-        link.href = canvas.toDataURL();
-        link.click();
-    });
+    document.getElementById('snapshotBtn').addEventListener('click', downloadSnapshot);
     
     // PWA Installation
     let deferredPrompt;
@@ -651,13 +829,8 @@
         installBtn.className = 'install-pwa-btn';
         installBtn.onclick = () => {
             deferredPrompt.prompt();
-            deferredPrompt.userChoice.then((choiceResult) => {
-                if (choiceResult.outcome === 'accepted') {
-                    console.log('User accepted install');
-                }
-                installBtn.remove();
-                deferredPrompt = null;
-            });
+            deferredPrompt.userChoice.then(() => installBtn.remove());
+            deferredPrompt = null;
         };
         document.querySelector('.header-row').appendChild(installBtn);
     });
@@ -666,36 +839,6 @@
     updateLiveClock();
     renderUI();
     updateSeasonUI();
-</script>
-
-<script>
-    // Create Service Worker file dynamically
-    const serviceWorkerCode = `const CACHE_NAME = 'year-compass-v1';
-const urlsToCache = [
-    '/',
-    '/index.html'
-];
-
-self.addEventListener('install', event => {
-    event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(cache => cache.addAll(urlsToCache))
-    );
-});
-
-self.addEventListener('fetch', event => {
-    event.respondWith(
-        caches.match(event.request)
-            .then(response => response || fetch(event.request))
-    );
-});`;
-
-    // Write service worker if not exists (for demo purposes, we create it dynamically)
-    if (typeof window !== 'undefined') {
-        const blob = new Blob([serviceWorkerCode], {type: 'application/javascript'});
-        const url = URL.createObjectURL(blob);
-        // Note: In production, you'd serve sw.js from root
-    }
 </script>
 </body>
 </html>
